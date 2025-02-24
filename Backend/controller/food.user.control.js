@@ -54,6 +54,7 @@ const UserRegister = async (req, res) => {
             return res.status(404).json({msg:"user not found signup"})
           }
           const token =jwt.sign({id:data._id,name:data.name},process.env.ACCESS_TOKEN_SECRET)
+          console.log(token)
           res.status(200).json({message:"Login success",token:token})
         }
         catch(err){
