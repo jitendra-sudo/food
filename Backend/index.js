@@ -6,7 +6,9 @@ import {connect} from "mongoose"
 import { router } from "./router/user.routes.js";
 import  cookieParser from "cookie-parser";
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin:"http://localhost:5173"
+}));
 app.use(express.json());
 app.use(cookieParser());
 

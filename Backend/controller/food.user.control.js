@@ -42,32 +42,23 @@ const UserRegister = async (req, res) => {
   }
 };
 
-const UserLogin = async (req, res) => {
-  try {
-    const user = await user.findOne({ email: req.body.email }).select(
-      "+password"
-    );
-    if (!user || !(await user.comparePassword(req.body.password))) {
-      return res.status(401).json({ error: "Invalid credentials" });
+
+ const UserLogin=async (req,res)=>{
+        const {email,password}=req.body;
+        if(!password||!email){
+            return res.status(400).json({msg:"bad request"})
+        }
+        try{
+          const data= await user.findOne({email:email});
+          
+          const token =jwt.sign({id:data._id,name:data.name},process.env.ACCESS_TOKEN_SECRET)
+          res.status(200).json({message:"Login success",token:token})
+        }
+        catch(err){
+          res.status(500).json({message:"Internal server error",error:err.message})
+        }
     }
 
-    const {refreshToken,accessToken}=await genrateRefreshandAccessToken(user._id)
-
-    const options = {
-        // httpOnly: true,
-        secure : true,
-      }
-    //   console.log(refreshToken,accessToken)
-      // sending cookies and the user value
-      res.status(200)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
-      .json({message:"user logged in successfully"})
-
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 const getRecipes = async (req, res) => {
   try {
