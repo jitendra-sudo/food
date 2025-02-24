@@ -1,0 +1,135 @@
+:root {
+    --primary: #2a9d8f;
+    --primary-dark: #264653;
+    --secondary: #e9c46a;
+    --text: #2b2d42;
+    --light: #f8f9fa;
+}
+
+
+
+.services-section {
+    background: linear-gradient(135deg, var(--light) 0%, #d8f0ed 100%);
+    height: 550px;
+    padding-top: 70px;
+    /* border: 2px solid ; */
+  
+}
+
+
+
+.section-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: teal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--secondary);
+}
+
+.section-subtitle {
+    color: var(--text);
+    font-size: 1.1rem;
+    /* max-width: 600px; */
+    margin: 0 auto;
+   
+}
+
+.services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 0px 20px;
+}
+
+
+.service-card {
+    background: white;
+    border-radius: 15px;
+    padding: 24px 28px;
+    width: 250px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(42,157,143,0.1));
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.service-card:hover::before {
+    top: 0;
+    left: 0;
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    /* margin-bottom: 1.5rem; */
+}
+
+.card-title {
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.card-subtitle {
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-description {
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .services-section {
+        padding: 4rem 0;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+body{
+    margin:0px;
+    padding: 0px;
+    /* color: white; */
+    /* background: rgba(233, 223, 223, 0.1); */
+    background:linear-gradient(135deg,  #F8F9FA 0%, #d8f0ed 100%);
+}
+.first-page{
+    background: url('./recipe.png') no-repeat center center fixed; 
+    background-size: cover; 
+    width: 100%;
+    height: 100vh;
+}
+.Head-first{
+    display: flex;
+    position:fixed;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    padding: 20px 30px;
+    border-radius: 0px 0px 10px 10px;
+    border: 0px solid ;
+    background:rgba(187, 183, 183, 0.3);
+}
+/* .H-header img{
+
+} */
+
+.Head-first nav{
+    display: flex;
+    /* border: 2px solid; */
+    width: 250px;
+    justify-content: space-evenly;
+}
+
+.Head-first nav a{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color:black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Head-first nav a:hover{
+    color: #2c2a2a;
+}
+
+.first-page-body{
+    /* border: 2px solid; */
+    height: 520px;
+    padding-top: 80px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.H-heading{
+   border: 0px solid;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   text-align: center;
+   align-items: center;
+   height: 420px;
+}
+
+.H-heading{
+    /* color: #030303; */
+   
+}
+
+.H-heading h1{
+   color: rgb(13, 14, 14);
+   /* font-size: 0px; */
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-weight: bold;
+   text-shadow: rgb(255, 255, 255) 0px 5px 15px;
+
+}
+.H-heading strong{
+    color:rgb(9, 189, 3);
+}
+
+.H-heading h3{
+    color: rgb(41, 38, 38);
+    /* font-size: 20px; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: rgb(255, 255, 255) 0px 5px 15px;
+
+}
+
+.H-heading h1::after {
+    content: '';
+    position: absolute;
+    top:48%;
+    left: 35%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #eeae0c;
+}
+
+.Home-Auth{
+   
+}
+
+.login{
+    margin-top: 50px;
+    padding: 30px 40px;
+    background: rgba(187, 183, 183, 0.3);
+    border-radius: 20px;
+    height: 350px;
+}
+.H-Signup{
+    margin-top: 10px;
+    padding: 5px 40px;
+    background: rgba(187, 183, 183, 0.3);
+    border-radius: 20px;
+    height: 490px;
+}
+.login .enter20{
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    
+}
+
+#Login-Heading{
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(18, 19, 19);
+}
+.login input{
+      color: black;
+      padding: 8px 8px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border: 0px;
+      outline: none;
+    /* display: block; */
+}
+.login .label2{
+  
+   color: rgb(0, 0, 0);
+   font-weight: bold;
+}
+
+#forgetbtn{
+background: none;
+border: none;
+cursor: pointer;
+ /* border: 2px solid; */
+ width: 100%;
+ text-align: end;
+ margin-bottom: 15px;
+ font-weight: bolder;
+
+
+}
+
+#forgetbtn:hover{
+   color: #2c2a2a;
+}
+
+.subbtn{
+    display: flex;
+    justify-content: center;
+    /* border: 2px solid; */
+    width: 100%;
+}
+.subbtn button{
+    padding: 8px 9px;
+    /* font-size: 15px; */
+    font-weight: bold;
+    border-radius: 8px;
+text-align: center;
+border: none;
+background: linear-gradient(45deg, #4763ff, #ff4500);
+color: white;
+margin-bottom: 10px;
+ 
+}
+
+.subbtn button:hover{
+    background: linear-gradient(45deg, #3047ca, #df4c16);
+
+}
+
+#sign{
+    background: none;
+    border: none;
+    color: rgb(15, 15, 100);
+    font-weight: bold;
+    /* font-size: large; */
+    cursor: pointer;
+}
+.label3{
+    color: black;
+    
+}
+
+
+
+
+
+
+/* //////////////////// */
+
+  /* Signup Form Inputs */
+
+  .label1{
+    color: black;
+  } 
+
+  .H-Signup input {
+    display: block;
+    width: 100%;
+    padding-left: 16px;
+    padding-top:6px;
+    padding-bottom: 6px;
+    margin-top: 0px;
+    margin-bottom: 6px;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+    color: black;
+    outline: none;
+  }
+  
+
+#aount{
+    width: 100%;
+    border-radius: 8px;
+    padding: 7px 8px;
+    border: none;
+    color: white;
+    background: linear-gradient(45deg, #4763ff, #ff4500);
+
+}
+
+#aount:hover{
+    background: linear-gradient(45deg, #3346b3, #b83f14);
+}
+
+
+.createbtn{
+    width: 108%;
+}
+
+.H-Signup h1{
+    text-align: center;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+  /* Signup Form Labels */
+  .H-Signup label {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+.loginpage{
+    display: flex;
+    margin-top: 20px;
+}
+
+.loginpage label{
+    font-size:small;
+}
+
+.loginpage button{
+     border: none;
+    background: none;
+    font-weight: bold;
+    color: rgb(19, 19, 189);
+}
+
+
+
+  
