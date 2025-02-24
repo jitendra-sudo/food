@@ -7,7 +7,7 @@ import { router } from "./router/user.routes.js";
 import  cookieParser from "cookie-parser";
 const app = express();
 app.use(cors({
-    origin:"http://localhost:5173"
+    origin:"https://foodierecipesing.netlify.app"
 }));
 app.use(express.json());
 app.use(cookieParser());
