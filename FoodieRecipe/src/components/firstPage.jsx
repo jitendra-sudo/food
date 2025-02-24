@@ -4,6 +4,7 @@ import './firstPage.css'
 import About from './about'
 import Service from './service'
 import { useNavigate } from 'react-router-dom';
+import Foodie from './Foddie.png'
 
 function FirstPage() {
   const navigate = useNavigate()
@@ -32,7 +33,7 @@ function FirstPage() {
     setLoading(true);
     const login = {email:emailLogin , password:passwordLogin}
      try{
-      const response = await axios.post("http://localhost:4000/api/login", login)
+      const response = await axios.post("https://food-1-ccis.onrender.com/api/login", login)
       console.log(response.data)
       navigate("/dashboard")
      }catch{
@@ -56,7 +57,7 @@ function FirstPage() {
     console.log(data);
     setLoading(true);
      try{
-      const res = await axios.post("http://localhost:4000/api/register" , data)
+      const res = await axios.post("https://food-1-ccis.onrender.com/api/register" , data)
        console.log(res.data)
        navigate("/dashboard")
      }catch{
@@ -70,7 +71,7 @@ function FirstPage() {
     <div className='first-page'>
       <header className='Head-first'>
         <div className='H-header'>
-          <img src='' alt='FoodieRecipe' />
+          <img src={Foodie} alt='FoodieRecipe' />
         </div>
         <nav>
           <a href='#recipes'>About</a>

@@ -24,7 +24,8 @@ body{
     left: 0;
     right: 0;
     justify-content: space-between;
-    padding: 20px 30px;
+    align-items: center;
+    padding: 3px 30px;
     border-radius: 0px 0px 10px 10px;
     border: 0px solid ;
     background:rgba(187, 183, 183, 0.3);
@@ -70,9 +71,12 @@ body{
    height: 420px;
 }
 
-.H-heading{
-    /* color: #030303; */
-   
+.H-heading img{
+  
+}
+
+.H-header img{
+    width: 70px;
 }
 
 .H-heading h1{

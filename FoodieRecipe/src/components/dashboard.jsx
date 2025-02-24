@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaHeart, FaSearch } from 'react-icons/fa';
 import './dashboard.css';
 import axios from "axios"
-
+import Foodie from './Foddie.png'
 const Dashboard = () => {
   const [search, setSearch] = useState("");
   const [favoritesVisible, setFavoritesVisible] = useState(false);
@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const handleFetch = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/recipes');
+        const response = await axios.get('https://food-1-ccis.onrender.com/api/recipes');
         const data = response.data;  
         console.log(data);
         setRecipes(data);
@@ -55,7 +55,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <header className="dashboard-header">
         <nav className="nav-container">
-          <img src="/path/to/logo.png" alt="FoodieRecipe" className="logo" />
+          <img src={Foodie} alt="FoodieRecipe" className="logo" />
           <div className="search-container">
             <div className="search-bar">
               <FaSearch className="search-icon" />
