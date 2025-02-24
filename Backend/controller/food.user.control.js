@@ -44,12 +44,15 @@ const UserRegister = async (req, res) => {
 
 
  const UserLogin=async (req,res)=>{
+        try{
         const {email,password}=req.body;
+        console.log(email)
         if(!password||!email){
             return res.status(400).json({msg:"bad request"})
         }
-        try{
+        
           const data= await user.findOne({email:email});
+          console.log(data)
           if(!data){
             return res.status(404).json({msg:"user not found signup"})
           }
