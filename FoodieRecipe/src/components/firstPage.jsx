@@ -33,7 +33,7 @@ function FirstPage() {
     setLoading(true);
     const login = {email:emailLogin , password:passwordLogin}
      try{
-      const response = await axios.post("https://food-1-ccis.onrender.com/api/login", login)
+      const response = await axios.post("http://localhost:4000/api/login", login)
       console.log(response.data)
       navigate("/dashboard")
      }catch{
@@ -57,7 +57,7 @@ function FirstPage() {
     console.log(data);
     setLoading(true);
      try{
-      const res = await axios.post("https://food-1-ccis.onrender.com/api/register" , data)
+      const res = await axios.post("http://localhost:4000/api/register" , data)
        console.log(res.data)
        navigate("/dashboard")
      }catch{

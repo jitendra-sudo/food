@@ -7,32 +7,36 @@ import Foodie from './Foddie.png';
 const Dashboard = () => {
   const [search, setSearch] = useState("");
   const [favoritesVisible, setFavoritesVisible] = useState(false);
-  
-  const [favorites, setFavorites] = useState(() => {
-    const savedFavorites = localStorage.getItem('favorites');
-    return savedFavorites ? JSON.parse(savedFavorites) : [];
-  });
-  
+  const [favorites, setFavorites] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipes, setSelectedRecipes] = useState([]);
 
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
+
+  const demoUserId = "64bf3c2f2d7e6a2e3b6bcd5a";
 
   useEffect(() => {
-    const handleFetch = async () => {
+    const fetchRecipes = async () => {
       try {
-        const response = await axios.get('https://food-1-ccis.onrender.com/api/recipes');
-        const data = response.data;
-        console.log(data);
-        setRecipes(data);
+        const response = await axios.get('http://localhost:4000/api/recipes');
+        setRecipes(response.data);
       } catch (error) {
-        console.error('Error fetching API:', error);
+        console.error('Error fetching recipes:', error);
       }
     };
-    handleFetch();
+    fetchRecipes();
+  }, []);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/api/favouritelist');
+        setFavorites(response.data);
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+      }
+    };
+    fetchFavorites();
   }, []);
 
   useEffect(() => {
@@ -44,26 +48,45 @@ const Dashboard = () => {
     setFilteredRecipes(filtered);
   }, [search, recipes]);
 
-  const handleAddFavorite = (recipeId) => {
-    const recipe = recipes.find(r => r._id === recipeId);
-    if (recipe) {
-      const isAlreadyFavorite = favorites.some(fav => fav._id === recipeId);
-      if (!isAlreadyFavorite) {
-        setFavorites(prev => [...prev, recipe]);
-      }
+  const isFavorite = (recipeId) => {
+    return favorites.some(fav => fav.recipeId === recipeId);
+  };
+
+  const handleAddFavorite = async (recipeId) => {
+    try {
+      const response = await axios.post('http://localhost:4000/api/favouritelist', {
+        userid: demoUserId,
+        recipeId
+      });
+      setFavorites(prev => [...prev, response.data.favItem]);
+    } catch (error) {
+      console.error('Error adding favorite:', error);
     }
   };
 
-  const handleBatchAddFavorites = () => {
-    const newFavorites = selectedRecipes.reduce((acc, id) => {
-      const recipe = recipes.find(r => r._id === id);
-      if (recipe && !favorites.some(fav => fav._id === id)) {
-        acc.push(recipe);
-      }
-      return acc;
-    }, []);
+  const handleRemoveFavorite = async (recipeId) => {
+    try {
+      await axios.delete(`http://localhost:4000/api/favouritelist/${recipeId}`);
+      setFavorites(prev => prev.filter(fav => fav.recipeId !== recipeId));
+    } catch (error) {
+      console.error('Error removing favorite:', error);
+    }
+  };
+
+  const handleBatchAddFavorites = async () => {
+    const newFavorites = selectedRecipes.filter(recipeId => !isFavorite(recipeId));
+
     if (newFavorites.length > 0) {
-      setFavorites(prev => [...prev, ...newFavorites]);
+      try {
+        const promises = newFavorites.map(recipeId =>
+          axios.post('http://localhost:4000/api/favouritelist', { userid: demoUserId, recipeId })
+        );
+        const responses = await Promise.all(promises);
+        const addedFavorites = responses.map(res => res.data.favItem);
+        setFavorites(prev => [...prev, ...addedFavorites]);
+      } catch (error) {
+        console.error('Error adding batch favorites:', error);
+      }
     }
     setSelectedRecipes([]);
   };
@@ -80,20 +103,32 @@ const Dashboard = () => {
           <div className="search-container">
             <div className="search-bar">
               <FaSearch className="search-icon" />
-              <input  type="text"  value={search}  placeholder="Search recipes..." onChange={(e) => setSearch(e.target.value)} />
+              <input
+                type="text"
+                value={search}
+                placeholder="Search recipes..."
+                onChange={(e) => setSearch(e.target.value)}
+              />
             </div>
-            <button className="favorites-btn" onClick={toggleFavoritesSlider}>  <FaHeart className="heart-icon" /> Favorites  </button>
+            <button className="favorites-btn" onClick={toggleFavoritesSlider}>
+              <FaHeart className="heart-icon" /> Favorites
+            </button>
           </div>
         </nav>
       </header>
 
       {favoritesVisible && (
         <div id="yourFavouriteRecipe" className="favorites-slider">
-            <h3>Your Favorites</h3>
+          <h3>Your Favorites</h3>
           {favorites.length > 0 ? (
             <ul>
               {favorites.map((fav, index) => (
-                <li key={fav._id || index}>{fav.title}</li>
+                <li key={fav._id || index}>
+                  {recipes.find(recipe => recipe._id === fav.recipeId)?.title || 'Unknown Recipe'}
+                  <button onClick={() => handleRemoveFavorite(fav.recipeId)}>
+                    Remove
+                  </button>
+                </li>
               ))}
             </ul>
           ) : (
@@ -107,9 +142,18 @@ const Dashboard = () => {
           {filteredRecipes.map((recipe, index) => (
             <article key={recipe._id || index} className="recipe-card">
               <div className="card-header">
-                <img  src={recipe.image}  alt={recipe.title}  className="recipe-image"  onError={(e) => { e.target.src = '/fallback-image.jpg'; }}  />
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="recipe-image"
+                  onError={(e) => { e.target.src = '/fallback-image.jpg'; }}
+                />
 
-                <input  type="checkbox" style={{display:"none"}}  checked={selectedRecipes.includes(recipe._id)}
+                {/* Hidden checkbox to allow batch selection */}
+                <input
+                  type="checkbox"
+                  style={{ display: "none" }}
+                  checked={selectedRecipes.includes(recipe._id)}
                   onChange={(e) => {
                     if (e.target.checked) {
                       setSelectedRecipes(prev => [...prev, recipe._id]);
@@ -118,8 +162,16 @@ const Dashboard = () => {
                     }
                   }}
                 />
-                <button  className="favorite-btn"  onClick={() => handleAddFavorite(recipe._id)}  >  <FaHeart />  </button>
-            
+                <button
+                  className="favorite-btn"
+                  onClick={() => {
+                    isFavorite(recipe._id)
+                      ? handleRemoveFavorite(recipe._id)
+                      : handleAddFavorite(recipe._id);
+                  }}
+                >
+                  <FaHeart color={isFavorite(recipe._id) ? "red" : "gray"} />
+                </button>
               </div>
 
               <div className="card-body">
