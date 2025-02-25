@@ -144,16 +144,20 @@
     justify-content: center;
   }
   .recipe-grid {
-    max-width: 1000px;
+    width: 100%;
+    /* border: 2px solid; */
     margin:0px;
     padding:90px 0px;
     /* border: 2px solid; */
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 4fr));
+    display: flex ;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
   }
   
   .recipe-card {
+    /* border: 2px solid ; */
+    width: 290px;
     background: white;
     border-radius: 12px;
     overflow: hidden;
