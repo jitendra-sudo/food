@@ -18,7 +18,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/recipes');
+        const response = await axios.get('https://food-1-ccis.onrender.com/api/recipes');
         setRecipes(response.data);
       } catch (error) {
         console.error('Error fetching recipes:', error);
@@ -30,7 +30,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/favouritelist');
+        const response = await axios.get('https://food-1-ccis.onrender.com/api/favouritelist');
         setFavorites(response.data);
       } catch (error) {
         console.error('Error fetching favorites:', error);
@@ -39,6 +39,7 @@ const Dashboard = () => {
     fetchFavorites();
   }, []);
 
+  // Filter recipes based on search input
   useEffect(() => {
     const filtered = search.length > 0
       ? recipes.filter(recipe =>
@@ -54,7 +55,7 @@ const Dashboard = () => {
 
   const handleAddFavorite = async (recipeId) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/favouritelist', {
+      const response = await axios.post('https://food-1-ccis.onrender.com/api/favouritelist', {
         userid: demoUserId,
         recipeId
       });
@@ -66,7 +67,7 @@ const Dashboard = () => {
 
   const handleRemoveFavorite = async (recipeId) => {
     try {
-      await axios.delete(`http://localhost:4000/api/favouritelist/${recipeId}`);
+      await axios.delete(`https://food-1-ccis.onrender.com/api/favouritelist/${recipeId}`);
       setFavorites(prev => prev.filter(fav => fav.recipeId !== recipeId));
     } catch (error) {
       console.error('Error removing favorite:', error);
@@ -79,7 +80,7 @@ const Dashboard = () => {
     if (newFavorites.length > 0) {
       try {
         const promises = newFavorites.map(recipeId =>
-          axios.post('http://localhost:4000/api/favouritelist', { userid: demoUserId, recipeId })
+          axios.post('https://food-1-ccis.onrender.com/api/favouritelist', { userid: demoUserId, recipeId })
         );
         const responses = await Promise.all(promises);
         const addedFavorites = responses.map(res => res.data.favItem);
